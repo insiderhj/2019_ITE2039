@@ -5,15 +5,16 @@
 #include <utility>
 
 using std::vector;
+using std::pair;
 using std::string;
 
-vector< std::pair<int, int> > get_lis(string str);
-void print_lis(string str, vector< std::pair<int, int> > v);
-int get_max_idx(vector< std::pair<int, int> > v);
+vector< pair<int, int> > get_lis(string str);
+void print_lis(string str, vector< pair<int, int> > v);
+int get_max_idx(vector< pair<int, int> > v);
 
 int main() {
     string input, output;
-    vector< std::pair<int, int> > v;
+    vector< pair<int, int> > v;
 
     while (1) {
         std::getline(std::cin, input);
@@ -29,22 +30,23 @@ int main() {
 }
 
 // pair <before_index, string_length>
-vector< std::pair<int, int> > get_lis(string str) {
-    vector< std::pair<int, int> > v;
+vector< pair<int, int> > get_lis(string str) {
+    vector< pair<int, int> > v;
     for (int i = 0; i < str.size(); i++) {
         v.push_back(std::make_pair(i, 1));
     }
 
     for (int i = 0; i < str.size(); i++) {
         for (int j = 0; j < i; j++) {
-            if (str[i] > str[j] && v[i].second < v[j].second + 1) v[i] = std::make_pair(j, v[j].second + 1);
+            if (str[i] > str[j] && v[i].second < v[j].second + 1) v[i] =
+                std::make_pair(j, v[j].second + 1);
         }
     }
 
     return v;
 }
 
-void print_lis(string str, vector< std::pair<int, int> > v) {
+void print_lis(string str, vector< pair<int, int> > v) {
     string res;
     int i = get_max_idx(v);
     
@@ -58,7 +60,7 @@ void print_lis(string str, vector< std::pair<int, int> > v) {
     std::cout << res << std::endl;
 }
 
-int get_max_idx(vector< std::pair<int, int> > v) {
+int get_max_idx(vector< pair<int, int> > v) {
     int res, tmp_len = 0;
     for (int i = 0; i < v.size(); i++) {
         if (v[i].second > tmp_len) {

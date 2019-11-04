@@ -43,7 +43,7 @@ int main() {
             } else {
                 result = "";
             }
-            
+
             std::cout << table[0][table.size() - 1][TOTAL_COST] << ' ' << result << std::endl;
         } catch (std::invalid_argument e) {
             std::cout << "invalid input: not a number" << std::endl;
@@ -131,7 +131,7 @@ element get_min_element(vector< vector<element> > v, int row, int col) {
     res.push_back(0);
     for (int i = 0; i < col; i++) {
         int tmp = v[row][i][TOTAL_COST] + v[row][i][TOTAL_PAGES] +
-                  v[row + i + 1][col - i - 1][TOTAL_COST] + v[row + i + 1][col - i - 1][TOTAL_PAGES];
+            v[row + i + 1][col - i - 1][TOTAL_COST] + v[row + i + 1][col - i - 1][TOTAL_PAGES];
         
         if (res[TOTAL_COST] > tmp) {
             res[TOTAL_COST] = tmp;
@@ -149,6 +149,9 @@ string get_result(vector< vector<element> > table, int row, int col) {
     }
 
     res = "(" + get_result(table, row, table[row][col][SPLIT_INDEX]) + "," +
-        get_result(table, row + table[row][col][SPLIT_INDEX] + 1, col - table[row][col][SPLIT_INDEX] - 1) + ")";
+        get_result(table,
+                   row + table[row][col][SPLIT_INDEX] + 1,
+                   col - table[row][col][SPLIT_INDEX] - 1) +
+        ")";
     return res;
 }
