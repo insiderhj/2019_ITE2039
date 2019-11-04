@@ -7,22 +7,25 @@
 #define TOTAL_PAGES 1
 #define SPLIT_INDEX 2
 
-typedef std::vector<int> element;
+using std::vector;
+using std::string;
 
-std::vector<std::string> split(std::string str);
-std::vector<int> str_to_int(std::vector<std::string> strs);
-std::vector< std::vector<element> > init_table(std::vector<int> nums);
+typedef vector<int> element;
 
-void fill_table(std::vector< std::vector<element> >& v);
-element get_min_element(std::vector< std::vector<element> > v, int row, int col);
+vector<string> split(string str);
+vector<int> str_to_int(vector<string> strs);
+vector< vector<element> > init_table(vector<int> nums);
 
-std::string get_result(std::vector< std::vector<element> > table, int row, int col);
+void fill_table(vector< vector<element> >& v);
+element get_min_element(vector< vector<element> > v, int row, int col);
+
+string get_result(vector< vector<element> > table, int row, int col);
 
 int main() {
-    std::string input, result;
-    std::vector<std::string> strings;
-    std::vector<int> numbers;
-    std::vector< std::vector<element> > table;
+    string input, result;
+    vector<string> strings;
+    vector<int> numbers;
+    vector< vector<element> > table;
     
     while (true) {
         std::getline(std::cin, input);
@@ -48,8 +51,8 @@ int main() {
     return 0;
 }
 
-std::vector<std::string> split(std::string str) {
-    std::vector<std::string> v;
+vector<string> split(string str) {
+    vector<string> v;
     size_t start;
 
     if ((start = str.find_first_not_of(" \t")) < str.size()) str = str.substr(start);
@@ -70,8 +73,8 @@ std::vector<std::string> split(std::string str) {
     return v;
 }
 
-std::vector<int> str_to_int(std::vector<std::string> strs) {
-    std::vector<int> v;
+vector<int> str_to_int(vector<string> strs) {
+    vector<int> v;
     int input;
     
     for (size_t i = 0; i < strs.size(); i++) {
@@ -83,9 +86,9 @@ std::vector<int> str_to_int(std::vector<std::string> strs) {
     return v;
 }
 
-std::vector< std::vector<element> > init_table(std::vector<int> nums) {
-    std::vector< std::vector<element> > v;
-    std::vector<element> tmp;
+vector< vector<element> > init_table(vector<int> nums) {
+    vector< vector<element> > v;
+    vector<element> tmp;
     element e;
 
     e.push_back(0);
@@ -101,7 +104,7 @@ std::vector< std::vector<element> > init_table(std::vector<int> nums) {
     return v;
 }
 
-void fill_table(std::vector< std::vector<element> >& v) {
+void fill_table(vector< vector<element> >& v) {
     for (int i = 0; i < v.size() - 1; i++) {
         element tmp;
         tmp.push_back(v[i][0][TOTAL_PAGES] + v[i + 1][0][TOTAL_PAGES]);
@@ -117,7 +120,7 @@ void fill_table(std::vector< std::vector<element> >& v) {
     }
 }
 
-element get_min_element(std::vector< std::vector<element> > v, int row, int col) {
+element get_min_element(vector< vector<element> > v, int row, int col) {
     element res;
     res.push_back(INT_MAX);
     res.push_back(v[row][0][TOTAL_PAGES] + v[row + 1][col - 1][TOTAL_PAGES]);
@@ -135,8 +138,8 @@ element get_min_element(std::vector< std::vector<element> > v, int row, int col)
     return res;
 }
 
-std::string get_result(std::vector< std::vector<element> > table, int row, int col) {
-    std::string res;
+string get_result(vector< vector<element> > table, int row, int col) {
+    string res;
     if (col == 0) {
         return std::to_string(table[row][col][TOTAL_PAGES]);
     }
