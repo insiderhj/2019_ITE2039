@@ -21,7 +21,7 @@ vector< vector<element_t> > init_table(vector<int> nums);
 
 // construct table
 void fill_table(vector< vector<element_t> >& v);
-element_t get_min_element(vector< vector<element_t> > v, int row, int col);
+element_t get_min_cost(vector< vector<element_t> > v, int row, int col);
 
 // result
 string get_result(vector< vector<element_t> > table, int row, int col);
@@ -153,7 +153,7 @@ void fill_table(vector< vector<element_t> >& v) {
     //     [0, 4]
     for (int i = 0; i < v.size() - 1; i++) {
         for (int j = i; j >= 0; j--) {
-            v[j].push_back(get_min_element(v, j, i + 1 - j));
+            v[j].push_back(get_min_cost(v, j, i + 1 - j));
         }
     }
 }
@@ -166,7 +166,7 @@ void fill_table(vector< vector<element_t> >& v) {
  * @param col column number of element
  * @return vector containing minimum total_cost with total_pages and split_index
  */
-element_t get_min_element(vector< vector<element_t> > v, int row, int col) {
+element_t get_min_cost(vector< vector<element_t> > v, int row, int col) {
     element_t res;
     res.push_back(INT_MAX);
     res.push_back(v[row][0][TOTAL_PAGES] + v[row + 1][col - 1][TOTAL_PAGES]);
