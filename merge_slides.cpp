@@ -37,9 +37,13 @@ int main() {
             numbers = str_to_int(strings);
             table = init_table(numbers);
 
-            if (table.size() > 1) fill_table(table);
+            if (table.size() > 1) {
+                fill_table(table);
+                result = get_result(table, 0, table.size() - 1);
+            } else {
+                result = "";
+            }
             
-            result = get_result(table, 0, table.size() - 1);
             std::cout << table[0][table.size() - 1][TOTAL_COST] << ' ' << result << std::endl;
         } catch (std::invalid_argument e) {
             std::cout << "invalid input: not a number" << std::endl;
