@@ -37,6 +37,9 @@ int main() {
 
         try {
             numbers = str_to_int(strings);
+            if (numbers[0] <= 0 || numbers[1] < 0) {
+                break;
+            }
 
             cities = numbers[0];
             city_pairs = numbers[1];
@@ -84,8 +87,7 @@ vector<int> str_to_int(vector<string> strs) {
     
     for (size_t i = 0; i < strs.size(); i++) {
         input = std::stoi(strs[i]);
-        if (input > 0) v.push_back(input);
-        else throw 1;
+        v.push_back(input);
     }
 
     return v;
@@ -109,6 +111,9 @@ vector<cost_t> get_costs(int cities, int city_pairs) {
         numbers = str_to_int(strings);
         if (numbers[0] > cities || numbers[1] > cities) {
             throw 1;
+        }
+        if (numbers[0] <= 0 || numbers[1] <= 0 || numbers[2] < 0) {
+            throw 2;
         }
 
         int tmp = find_path(result, numbers[0], numbers[1]);

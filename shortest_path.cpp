@@ -81,8 +81,7 @@ vector<int> str_to_int(vector<string> strs) {
     
     for (size_t i = 0; i < strs.size(); i++) {
         input = std::stoi(strs[i]);
-        if (input > 0) v.push_back(input);
-        else throw 1;
+        v.push_back(input);
     }
 
     return v;
@@ -115,6 +114,9 @@ vector< vector<int> > get_costs(int nodes, int edges) {
         numbers = str_to_int(strings);
         if (numbers[0] > nodes || numbers[1] > nodes) {
             throw 1;
+        }
+        if (numbers[0] <= 0 || numbers[1] <= 0 || numbers[2] < 0) {
+            throw 2;
         }
 
         result[numbers[0] - 1][numbers[1] - 1] = numbers[2];
