@@ -12,6 +12,7 @@ typedef vector<int> cost_t;
 vector<string> split(string str);
 vector<int> str_to_int(vector<string> strs);
 vector<cost_t> get_costs(int cities, int city_pairs);
+int find_path(vector<cost_t> costs, int a, int b);
 int mst(int cities, vector<cost_t> costs);
 bool compare_cost(cost_t& a, cost_t& b);
 int find_set(vector< set<int> > sets, int n);
@@ -109,9 +110,21 @@ vector<cost_t> get_costs(int cities, int city_pairs) {
         if (numbers[0] > cities || numbers[1] > cities) {
             throw 1;
         }
+
+        int tmp = find_path(result, numbers[0], numbers[1]);
+        if (tmp != -1) {
+            result.erase(result.begin() + tmp);
+        }
         result.push_back(numbers);
     }
     return result;
+}
+
+int find_path(vector<cost_t> costs, int a, int b) {
+    for (int i = 0; i < costs.size(); i++) {
+        if ((costs[i][0] == a && costs[i][1] == b) || (costs[i][0] == b && costs[i][1] == a)) return i;
+    }
+    return -1;
 }
 
 int mst(int cities, vector<cost_t> costs) {
